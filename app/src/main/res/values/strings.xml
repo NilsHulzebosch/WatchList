@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Watch List</string>
+    <string name="button">Search</string>
+    <string name="hint">Type in a movie title</string>
+    <string name="title_activity_show_watchlist">ShowWatchlist</string>
+    <string name="title_activity_show_movie">ShowMovie</string>
+    <string name="search_for_movies">Search for movies</string>
+    <string name="my_watchlist">My watchlist</string>
+    <string name="see_my_watchlist">See my watchlist</string>
+</resources>
