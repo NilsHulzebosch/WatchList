@@ -1,29 +1,15 @@
 package com.example.nils.watchlist;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class ShowMovie extends AppCompatActivity {
@@ -39,26 +25,31 @@ public class ShowMovie extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         movie = (MovieData) extras.getSerializable("movie");
+        Boolean checked = extras.getBoolean("checked", false);
+        displayMovie(checked);
 
+    }
+
+    /* This method takes care of the visual part:
+     * put all the correct movie data in the correct TextView, show Image and toggle CheckBox.
+     */
+    public void displayMovie(Boolean checked) {
         if (movie != null) {
+
             // set checkbox to checked
             checkBox = (CheckBox) findViewById(R.id.toggleWatchList);
-            Boolean checked = extras.getBoolean("checked", false);
             checkBox.setChecked(checked);
 
+            // get movie specifics
             String poster = movie.poster;
             String runTime = movie.runTime;
             String genre = movie.genre;
             String plot = movie.plot;
-            String language = movie.language;
             String awards = movie.awards;
             String metaScore = movie.metaScore;
             String imdbRating = movie.imdbRating;
             String imdbVotes = movie.imdbVotes;
             jsonobjectStr = movie.jsonobject;
-            System.out.println("ShowMovie class");
-            System.out.println("JSONString: " + jsonobjectStr);
-            // NIET HET GOEIE JSONOBJECT (DIT IS DE SIMPELE VERSIE!!!!!!!)
 
             // display movie title and year
             TextView titleTV = (TextView) findViewById(R.id.title_year);
@@ -107,6 +98,10 @@ public class ShowMovie extends AppCompatActivity {
         }
     }
 
+    /* This method is called when the checkbox is clicked.
+     * First get SharedPreferences, and check whether checkbox was already checked.
+     * Then execute correct activity, give Toast and update SharedPreferences.
+     */
     public void addToWatchList(View view) {
         SharedPreferences shared = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = shared.edit();
@@ -125,9 +120,7 @@ public class ShowMovie extends AppCompatActivity {
                 newset.add(jsonobjectStr);
                 editor.putStringSet("key", newset);
             }
-
             Toast.makeText(this, "Added " + movie.title + " to watchlist.", Toast.LENGTH_SHORT).show();
-
         } else {
             checkBox.setChecked(false);
             if (set != null) {
@@ -138,6 +131,8 @@ public class ShowMovie extends AppCompatActivity {
         editor.apply();
     }
 
+    // go to ShowWatchlist activity
+    // no arguments are given, this is stored in SharedPreferences
     public void goToWatchlist(View view) {
         Intent addToWatchList = new Intent(this, ShowWatchlist.class);
         startActivity(addToWatchList);

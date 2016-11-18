@@ -1,7 +1,6 @@
 package com.example.nils.watchlist;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,19 +37,12 @@ public class MainActivity extends AppCompatActivity {
             if (!(userInput.length() == 0)) {
                 getSearchResults();
             }
-        } else {
-
-            // reset SharedPreferences when starting the app
-            //Bundle extras = getIntent().getExtras();
-            //if (extras != null) {
-            //Boolean savedData = extras.getBoolean("savedData", false);
-            //if ( !savedData ) {
-            SharedPreferences shared = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
-            SharedPreferences.Editor editor = shared.edit();
-            editor.clear().apply();
-            //}
-            //}
         }
+
+        // if desired, reset WatchList (by resetting all SharedPreferences)
+        //SharedPreferences shared = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
+        //SharedPreferences.Editor editor = shared.edit();
+        //editor.clear().apply();
     }
 
     @Override
@@ -63,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("searchResults", searchResults);
         super.onSaveInstanceState(outState);
     }
-
 
     // check if user input is valid, then continue or give Toast
     public void searchMovies(View view) {
@@ -92,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
         showSearchResults();
     }
 
+    /* Check whether there is an userInput. If there is, turn into JSONObject(Array)
+     * and get desired data, turn into MovieData ArrayList en pass onto Adapter.
+     * Show the Adapter and set setOnItemClickListener to handle clicking on a movie.
+     * When a movie is clicked, get detailed data and add to the movie object.
+     * Then go to next activity using an Intent, passing the clicked movie object.
+     */
     public void showSearchResults() {
         if (searchResults.length() == 0) {
             Toast.makeText(this, "No data was found", Toast.LENGTH_LONG).show();
@@ -168,9 +164,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
     }
 
+    // go to ShowWatchlist activity
+    // no arguments are given, this is stored in SharedPreferences
+    public void goToWatchlist(View view) {
+        Intent addToWatchList = new Intent(this, ShowWatchlist.class);
+        startActivity(addToWatchList);
+    }
 
 }
 

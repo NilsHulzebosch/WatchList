@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
+// this class downloads an image from an url (code from StackOverflow)
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     ImageView bmImage;
 

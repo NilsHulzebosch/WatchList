@@ -27,7 +27,7 @@ public class HttpRequestHelper {
         // get chosen tag from argument
         String chosenTag = params[0]; // this is the user input
 
-        String completeURL = "";
+        String completeURL;
         if (generalSearch) {
             // if it is a search for movies in general, choose this URL
             completeURL= startURL + generalSearchStr + chosenTag + endURL;
@@ -72,10 +72,12 @@ public class HttpRequestHelper {
                     BufferedReader br = new BufferedReader(
                             new InputStreamReader(connection.getErrorStream()) );
                     // communicate correct error
+                    System.out.println("ResponseCode was not correct.");
+
                 }
 
             } catch(IOException e) {
-                System.out.println("Something went wrong");
+                System.out.println("Connection could not be made.");
             }
         }
         return result;

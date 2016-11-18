@@ -27,7 +27,7 @@
         android:id="@+id/title_year"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:textSize="20sp"
+        android:textSize="21sp"
         android:textColor="@color/colorBlack" />
 
     <View
@@ -35,7 +35,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/title_year"
         android:layout_marginTop="9dp"
-        android:background="#8CA8F2"/>
+        android:background="@color/colorPrimary"/>
 
     <TextView
         android:text=""
@@ -73,16 +73,15 @@
 
     <TextView
         android:text=""
-        android:layout_width="400dp"
-        android:layout_height="200dp"
+        android:layout_width="380dp"
+        android:layout_height="230dp"
         android:layout_below="@id/genre"
-        android:layout_marginLeft="220dp"
-        android:layout_marginStart="220dp"
+        android:layout_marginLeft="230dp"
+        android:layout_marginStart="230dp"
         android:layout_marginTop="20dp"
         android:id="@+id/plot"
         android:textSize="18sp"
         android:textColor="@color/colorBlack" />
-
 
     <TextView
         android:text=""

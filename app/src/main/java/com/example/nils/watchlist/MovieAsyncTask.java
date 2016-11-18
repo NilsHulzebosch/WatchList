@@ -37,9 +37,7 @@ public class MovieAsyncTask extends AsyncTask<String, Integer, String> {
     }
 
     // onProgressUpdate()
-    // voor later
 
-    // wat er uit doInBackground() komt wordt meegegeven aan onPostExecute()
     // onPostExecute()
     protected void onPostExecute(String result) {
         super.onPostExecute(result); // call existing class

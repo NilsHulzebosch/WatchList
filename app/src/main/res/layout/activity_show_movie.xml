@@ -35,7 +35,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/title_year"
         android:layout_marginTop="9dp"
-        android:background="#8CA8F2"/>
+        android:background="@color/colorPrimary"/>
 
     <TextView
         android:text=""
@@ -143,20 +143,19 @@
         android:layout_below="@+id/meta"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"
         android:id="@+id/awards"
         android:textSize="15sp" />
 
     <Button
-        android:text="See my watchlist"
+        android:text="@string/see_my_watchlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/toWatchlistButton"
         android:onClick="goToWatchlist" />
-
 
 </RelativeLayout>

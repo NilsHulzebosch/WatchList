@@ -8,10 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -24,20 +22,22 @@ public class ShowWatchlist extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_watchlist);
 
-        System.out.println("ShowWatchlist class");
-
+        // get SharedPreferences
         SharedPreferences shared = getSharedPreferences("SharedPreferences", MODE_PRIVATE);
         Set<String> set = shared.getStringSet("key", null);
 
         try {
-            convertToMovie(set);
+            convertToMovie(set); // turn into MovieData objects
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        showWatchList();
+        showWatchList(); // display adapter with movies
     }
 
+    /* Converts the Set of Strings into an ArrayList of MovieData's,
+     * because SharedPreferences has no Serializable store option.
+     */
     public void convertToMovie(Set<String> set) throws JSONException {
         searchResultsArray = new ArrayList<>();
 
@@ -51,7 +51,6 @@ public class ShowWatchlist extends AppCompatActivity {
                 String jsonobject = movie.toString();
 
                 MovieData movieD = new MovieData(title, year, imdbID, jsonobject);
-                System.out.println("JSON MOVIE" + jsonobject);
                 movieD.setPoster(movie.getString("Poster"));
                 movieD.setRunTime(movie.getString("Runtime"));
                 movieD.setGenre(movie.getString("Genre"));
@@ -62,14 +61,14 @@ public class ShowWatchlist extends AppCompatActivity {
                 movieD.setImdbRating(movie.getString("imdbRating"));
                 movieD.setImdbVotes(movie.getString("imdbVotes"));
 
-                System.out.println("Movie Object: " + movie);
                 searchResultsArray.add(movieD);
             }
         }
     }
 
+    // pass the ArrayList of MovieData's to an Adapter and show the list
+    // also add setOnItemClickListener in case the user clicks on an item
     public void showWatchList() {
-
         final ListView results = (ListView) findViewById(R.id.watchList);
         ArrayAdapter<MovieData> movieOverview = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, searchResultsArray);
@@ -81,15 +80,15 @@ public class ShowWatchlist extends AppCompatActivity {
                 MovieData movie = (MovieData) results.getItemAtPosition(i);
                 Intent showMovie = new Intent(ShowWatchlist.this, ShowMovie.class);
                 showMovie.putExtra("movie", movie); // pass MovieData object to next activity
-                showMovie.putExtra("checked", true);
+                showMovie.putExtra("checked", true); // set checkbox to checked
                 startActivity(showMovie);
             }
         });
     }
 
+    // when the button is clicked, go to MainActivity to search for movies
     public void goToSearch(View view) {
         Intent searchForMovies = new Intent(ShowWatchlist.this, MainActivity.class);
-        searchForMovies.putExtra("savedData", true);
         startActivity(searchForMovies);
     }
 }

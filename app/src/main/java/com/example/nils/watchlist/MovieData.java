@@ -2,9 +2,8 @@ package com.example.nils.watchlist;
 
 import java.io.Serializable;
 
+// MovieData class used to store movie objects
 public class MovieData implements Serializable {
-
-    // possible additions: "Director", "Writer", "Actors"
 
     public String title;
     public String year;
