@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToWatchlist(View view) {
         Intent addToWatchList = new Intent(this, ShowWatchlist.class);
         startActivity(addToWatchList);
+        finish();
     }
 
 }

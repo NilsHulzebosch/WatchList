@@ -27,13 +27,16 @@ public class HttpRequestHelper {
         // get chosen tag from argument
         String chosenTag = params[0]; // this is the user input
 
+        // convert multiple words into words connected with '+' instead of space
+        String inputStr = chosenTag.replaceAll(" ", "+");
+
         String completeURL;
         if (generalSearch) {
             // if it is a search for movies in general, choose this URL
-            completeURL= startURL + generalSearchStr + chosenTag + endURL;
+            completeURL= startURL + generalSearchStr + inputStr + endURL;
         } else {
             // else it is a search for a specific movie ID, then choose this URL
-            completeURL = startURL + byImdbID + chosenTag + endURL;
+            completeURL = startURL + byImdbID + inputStr + endURL;
         }
 
         // turn string into URL
